@@ -1,78 +1,385 @@
 # Caffenio Innovacore
 
-Sistema de pedidos Caffenio desarrollado con React + Electron.
+Sistema de pedidos Caffenio con **Frontend Electron + React** y **Backend .NET C#**.
 
-## 🚀 Tecnologías
+## 📋 Especificaciones del Proyecto
 
-- **React 18** - Framework de UI
-- **Electron** - Desktop application framework
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **React Router** - Navegación
-- **PNPM** - Package manager
+### **LENGUAJE:**
+- **FRONT:** React + Electron
+- **BACK:** API .NET Framework C#
 
-## 📦 Instalación
-
-```bash
-pnpm install
-```
-
-## 💻 Desarrollo
-
-Para ejecutar la aplicación en modo desarrollo:
-
-```bash
-pnpm run electron:dev
-```
-
-Este comando iniciará:
-1. El servidor de desarrollo de Vite (React)
-2. La aplicación de Electron
-
-## 🏗️ Build
-
-Para crear la aplicación de producción:
-
-```bash
-pnpm run electron:build
-```
-
-## 📁 Estructura del Proyecto
-
-```
-Caffenio_Innovacore/
-├── electron/          # Proceso principal de Electron
-├── src/              # Código fuente de React
-│   ├── pages/       # Páginas de la aplicación
-│   ├── App.jsx      # Componente principal
-│   └── main.jsx     # Punto de entrada
-├── assets/          # Recursos estáticos
-│   ├── css/
-│   ├── fonts/       # Fuentes Gilroy
-│   └── images/
-└── dist/            # Build de producción
-```
-
-## 🎨 Fuentes
-
-El proyecto usa la familia de fuentes **Gilroy** con los siguientes pesos:
-- Light (300)
-- Regular (400)
-- Medium (500)
-- SemiBold (600)
-- Bold (700)
-- ExtraBold (800)
-
-## 🔧 Scripts Disponibles
-
-- `pnpm run dev` - Servidor de desarrollo Vite
-- `pnpm run build` - Build de producción
-- `pnpm run electron:dev` - Desarrollo con Electron
-- `pnpm run electron:build` - Build de la aplicación Electron
+### **MOTOR:**
+- **Base de Datos:** Microsoft SQL Server
 
 ---
 
-Proyecto desarrollado para **Caffenio** como parte del **IMU**.
+## 🏗️ Arquitectura del Proyecto
+
+```
+Caffenio_Innovacore/
+├── frontend/          # 🎨 Aplicación Electron + React
+│   ├── electron/     # Proceso principal de Electron
+│   ├── src/         # Código React
+│   │   ├── pages/  # Páginas de la aplicación
+│   │   └── ...
+│   ├── assets/      # Recursos (fuentes, imágenes)
+│   └── README.md    # 📖 Documentación del frontend
+│
+├── backend/          # ⚙️ API REST en .NET
+│   ├── Caffenio.API/ # Proyecto Web API
+│   │   ├── Controllers/
+│   │   ├── Models/
+│   │   ├── Services/
+│   │   └── ...
+│   ├── README.md     # 📖 Documentación del backend
+│   └── START_HERE.md # 👈 Guía rápida para empezar
+│
+└── README.md         # 📄 Este archivo
+```
+
+---
+
+## 🚀 Inicio Rápido
+
+### **Frontend Developer**
+```bash
+cd frontend
+pnpm install
+pnpm run electron:dev
+```
+📖 [Ver documentación completa del frontend →](./frontend/README.md)
+
+### **Backend Developer**
+```bash
+cd backend/Caffenio.API
+dotnet run
+```
+📖 [Ver documentación completa del backend →](./backend/README.md)  
+👉 [EMPEZAR AQUÍ →](./backend/START_HERE.md)
+
+---
+
+## 🎨 Frontend (Electron + React)
+
+### Tecnologías
+- **React 18** - UI Framework
+- **Electron** - Desktop application
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **PNPM** - Package manager
+
+### Comandos principales
+```bash
+cd frontend
+pnpm install              # Instalar dependencias
+pnpm run electron:dev     # Desarrollo
+pnpm run electron:build   # Build producción
+```
+
+### Características
+✅ Configurado con Tailwind CSS  
+✅ Fuentes Gilroy incluidas  
+✅ React Router para navegación  
+✅ Hot reload habilitado  
+✅ Listo para conectar con el backend  
+
+**Puerto:** http://localhost:5173
+
+---
+
+## ⚙️ Backend (.NET C# + SQL Server)
+
+### Tecnologías
+- **.NET 9** - Framework
+- **ASP.NET Core Web API** - REST API
+- **C#** - Lenguaje
+- **Entity Framework Core** (por implementar)
+- **Microsoft SQL Server** - Base de datos
+
+### Comandos principales
+```bash
+cd backend/Caffenio.API
+dotnet restore            # Restaurar paquetes
+dotnet run               # Ejecutar API
+dotnet build             # Compilar
+```
+
+### Características
+✅ Proyecto Web API configurado  
+✅ CORS configurado para frontend  
+✅ Estructura organizada (MVC pattern)  
+✅ Ejemplos de código incluidos  
+✅ SQL Server connection string configurado  
+✅ Documentación completa  
+
+**Puertos:**
+- HTTP: http://localhost:5000
+- HTTPS: https://localhost:5001
+
+**Endpoint de prueba:** https://localhost:5001/api/health
+
+---
+
+## 🗄️ Base de Datos (SQL Server)
+
+### Configuración
+
+1. **Instalar SQL Server** (si no lo tienes):
+   - [SQL Server Express](https://www.microsoft.com/sql-server/sql-server-downloads) (Gratis)
+   - [SQL Server Developer Edition](https://www.microsoft.com/sql-server/sql-server-downloads) (Gratis)
+
+2. **Configurar Connection String** en `backend/Caffenio.API/appsettings.json`:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=CaffenioDB;Integrated Security=true;TrustServerCertificate=True;"
+  }
+}
+```
+
+3. **Instalar Entity Framework Core**:
+```bash
+cd backend/Caffenio.API
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+```
+
+4. **Crear migraciones** (cuando implementes el DbContext):
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
+---
+
+## 🔗 Comunicación Frontend ↔ Backend
+
+El frontend se comunica con el backend via REST API:
+
+**Frontend:** http://localhost:5173 (Vite dev server)  
+**Backend:** https://localhost:5001 (API .NET)
+
+### Ejemplo de llamada desde React:
+```javascript
+const response = await fetch('https://localhost:5001/api/health');
+const data = await response.json();
+console.log(data);
+```
+
+✅ **CORS ya está configurado** en el backend para aceptar requests del frontend.
+
+---
+
+## 📦 Gestión de Dependencias
+
+### Frontend (PNPM)
+```bash
+cd frontend
+pnpm install                # Instalar
+pnpm add <package>          # Agregar paquete
+pnpm remove <package>       # Eliminar paquete
+pnpm update                 # Actualizar todos
+```
+
+### Backend (.NET)
+```bash
+cd backend/Caffenio.API
+dotnet restore              # Restaurar
+dotnet add package <name>   # Agregar paquete NuGet
+dotnet remove package <name> # Eliminar paquete
+dotnet list package         # Listar paquetes
+```
+
+---
+
+## 🎨 Recursos del Proyecto
+
+### Fuentes
+**Gilroy** (ubicada en `frontend/assets/fonts/`):
+- Light (300), Regular (400), Medium (500)
+- SemiBold (600), Bold (700), ExtraBold (800)
+
+### Imágenes
+Logo ubicado en: `frontend/assets/images/logo.png`
+
+### Colores
+- **Fondo:** `#E1E1E1`
+- **Tarjetas:** `#FFFFFF`
+
+---
+
+## 🚀 Desarrollo Full Stack
+
+Para trabajar con ambos simultáneamente:
+
+**Terminal 1 - Frontend:**
+```bash
+cd frontend
+pnpm run electron:dev
+```
+
+**Terminal 2 - Backend:**
+```bash
+cd backend/Caffenio.API
+dotnet run
+```
+
+Ambos servicios correrán en paralelo y podrás desarrollar con hot reload.
+
+---
+
+## 📝 Estructura de Trabajo
+
+### Frontend
+```
+src/
+├── pages/          # Páginas principales
+├── components/     # Componentes reutilizables
+├── services/       # Llamadas a la API
+├── hooks/          # Custom hooks
+└── utils/          # Utilidades
+```
+
+### Backend
+```
+Caffenio.API/
+├── Controllers/    # Endpoints HTTP
+├── Models/        # Entidades del dominio
+├── DTOs/          # Data Transfer Objects
+├── Services/      # Lógica de negocio
+├── Repositories/  # Acceso a datos
+└── Middleware/    # Middleware personalizado
+```
+
+---
+
+## 🧪 Testing (Por implementar)
+
+### Frontend
+```bash
+cd frontend
+pnpm add -D vitest @testing-library/react
+```
+
+### Backend
+```bash
+cd backend
+dotnet new xunit -n Caffenio.Tests
+dotnet sln add Caffenio.Tests/Caffenio.Tests.csproj
+```
+
+---
+
+## 📚 Documentación Detallada
+
+| Componente | Archivo | Descripción |
+|------------|---------|-------------|
+| **Frontend** | [frontend/README.md](./frontend/README.md) | Documentación completa del frontend |
+| **Backend** | [backend/README.md](./backend/README.md) | Documentación completa del backend |
+| **Inicio Backend** | [backend/START_HERE.md](./backend/START_HERE.md) | Guía rápida para comenzar |
+| **Backend Checklist** | [backend/CHECKLIST.md](./backend/CHECKLIST.md) | Tareas pendientes organizadas |
+| **Backend Guía** | [backend/GUIA_RAPIDA.md](./backend/GUIA_RAPIDA.md) | Guía paso a paso |
+
+---
+
+## 🔒 Seguridad
+
+### Variables de Entorno
+**NO subir a Git:**
+- `appsettings.Development.json`
+- `appsettings.Production.json`
+- `.env.local`
+- Archivos con contraseñas o secrets
+
+El `.gitignore` ya está configurado para proteger archivos sensibles.
+
+---
+
+## 🛠️ Herramientas Recomendadas
+
+### Editores
+- **Visual Studio Code** (Frontend + Backend)
+- **Visual Studio 2022** (Backend - opcional)
+- **Rider** (Backend - opcional)
+
+### Extensiones VS Code
+- ESLint
+- Prettier
+- Tailwind CSS IntelliSense
+- C# Dev Kit
+- SQL Server (mssql)
+
+### Software Adicional
+- **SQL Server Management Studio (SSMS)** - Gestión de base de datos
+- **Postman** / **Insomnia** - Testing de API
+- **Git** - Control de versiones
+
+---
+
+## 📊 Estado del Proyecto
+
+### ✅ Completado
+- [x] Configuración inicial de Frontend
+- [x] Configuración inicial de Backend
+- [x] Estructura de carpetas organizada
+- [x] CORS configurado
+- [x] Documentación completa
+- [x] Ejemplos de código
+- [x] .gitignore configurado
+
+### 🔜 Por Implementar
+- [ ] Base de datos con Entity Framework Core
+- [ ] Autenticación JWT
+- [ ] Endpoints de la API
+- [ ] Páginas del frontend
+- [ ] Sistema de login
+- [ ] Catálogo de productos
+- [ ] Sistema de pedidos
+
+---
+
+## 👥 Equipo
+
+Proyecto desarrollado para **Caffenio** como parte del **Innovation Meet Up (IMU) 2026**.
+
+---
+
+## 📄 Licencia
+
+MIT
+
+---
+
+## 🆘 Ayuda
+
+### Problemas comunes:
+
+**Frontend no inicia:**
+```bash
+cd frontend
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
+**Backend no compila:**
+```bash
+cd backend/Caffenio.API
+dotnet clean
+dotnet restore
+dotnet build
+```
+
+**Base de datos no conecta:**
+- Verifica que SQL Server esté corriendo
+- Revisa la connection string en `appsettings.json`
+- Prueba la conexión con SSMS
+
+---
+
+**¿Listo para comenzar?**
+
+👉 **Frontend:** Ve a [frontend/README.md](./frontend/README.md)  
+👉 **Backend:** Ve a [backend/START_HERE.md](./backend/START_HERE.md)
 │
 ├── frontend/
 │   ├── src/
