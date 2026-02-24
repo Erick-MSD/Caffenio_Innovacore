@@ -1,103 +1,78 @@
-# Caffenio_Innovacore
+# Caffenio Innovacore
 
-Proyecto desarrollado para **Caffenio** como parte del **IMU**.
+Sistema de pedidos Caffenio desarrollado con React + Electron.
 
-## Descripción General
+## 🚀 Tecnologías
 
-Este proyecto tiene como objetivo construir una solución moderna, escalable y mantenible, siguiendo buenas prácticas de desarrollo y trabajo colaborativo.
+- **React 18** - Framework de UI
+- **Electron** - Desktop application framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **React Router** - Navegación
+- **PNPM** - Package manager
 
-La arquitectura estará basada en **microservicios**, permitiendo separar responsabilidades y facilitar el despliegue, mantenimiento y escalabilidad del sistema.
-
-## Tecnologías
-
-### Backend
-
-* **TypeScript** como lenguaje principal.
-* Arquitectura basada en microservicios.
-
-### Frontend
-
-* **React** o **Astro** (la elección final dependerá de cuál se adapte mejor al diseño y requerimientos del proyecto).
-
-### Base de Datos
-
-* **MongoDB** como base de datos **NoSQL**.
-
-### Infraestructura
-
-* Contenerización con **Docker** (pendiente definir el entorno de alojamiento).
-* Implementación de **CI/CD** para automatizar pruebas y despliegues.
-
-## Metodología de Trabajo
-
-Se utilizará la metodología **SCRUM**, organizada de la siguiente manera:
-
-* **3 Sprints** hasta la entrega final del proyecto.
-* Los sprints no deberán exceder los **20 puntos**.
-* Cada historia o tarea será claramente descrita.
-
-### Seguimiento Diario
-
-* Se evaluará la implementación de **Daily Meetings**.
-* En caso de no realizarlas, se deberá reportar diariamente el progreso realizado.
-* El seguimiento será compartido entre **Erick** y **Gael**, quienes revisarán los avances.
-
-## Calidad y Pruebas
-
-* Se realizarán **pruebas unitarias**, donde cada integrante será responsable de probar su propio código.
-* Posteriormente, se pasará a una fase de **QA**, en la cual cada integrante probará el trabajo de otro.
-* La documentación de pruebas será **clara y concisa**, evitando sobrecargarla y facilitando su replicación.
-
-## Arquitectura del Sistema
-
-La arquitectura del proyecto estará basada en **microservicios**, donde cada servicio es independiente, escalable y responsable de una funcionalidad específica del sistema.
-
-### Enfoque Arquitectónico
-
-* **Microservicios desacoplados**: cada servicio tendrá su propia lógica, configuración y pruebas.
-* **Comunicación vía API (REST/HTTP)** entre servicios.
-* **Base de datos NoSQL (MongoDB)**, con colecciones organizadas por dominio.
-* Preparado para **contenedores Docker**, facilitando despliegues locales y productivos.
-
-Esta arquitectura permite:
-
-* Escalar servicios de forma independiente.
-* Reducir el impacto de cambios.
-* Facilitar el trabajo en paralelo del equipo.
-
-## Organización del Proyecto
-
-El proyecto se organizará por **servicios**, manteniendo una estructura clara y modular que permita crecer sin perder orden.
-
-### Estructura General de Carpetas
+## 📦 Instalación
 
 ```bash
+pnpm install
+```
+
+## 💻 Desarrollo
+
+Para ejecutar la aplicación en modo desarrollo:
+
+```bash
+pnpm run electron:dev
+```
+
+Este comando iniciará:
+1. El servidor de desarrollo de Vite (React)
+2. La aplicación de Electron
+
+## 🏗️ Build
+
+Para crear la aplicación de producción:
+
+```bash
+pnpm run electron:build
+```
+
+## 📁 Estructura del Proyecto
+
+```
 Caffenio_Innovacore/
-├── services/
-│   ├── auth-service/
-│   │   ├── src/
-│   │   │   ├── controllers/
-│   │   │   ├── routes/
-│   │   │   ├── models/
-│   │   │   ├── services/
-│   │   │   ├── middlewares/
-│   │   │   └── tests/
-│   │   ├── Dockerfile
-│   │   └── package.json
-│   │
-│   ├── user-service/
-│   │   ├── src/
-│   │   │   ├── controllers/
-│   │   │   ├── routes/
-│   │   │   ├── models/
-│   │   │   ├── services/
-│   │   │   ├── middlewares/
-│   │   │   └── tests/
-│   │   ├── Dockerfile
-│   │   └── package.json
-│   │
-│   └── other-service/
-│       └── ...
+├── electron/          # Proceso principal de Electron
+├── src/              # Código fuente de React
+│   ├── pages/       # Páginas de la aplicación
+│   ├── App.jsx      # Componente principal
+│   └── main.jsx     # Punto de entrada
+├── assets/          # Recursos estáticos
+│   ├── css/
+│   ├── fonts/       # Fuentes Gilroy
+│   └── images/
+└── dist/            # Build de producción
+```
+
+## 🎨 Fuentes
+
+El proyecto usa la familia de fuentes **Gilroy** con los siguientes pesos:
+- Light (300)
+- Regular (400)
+- Medium (500)
+- SemiBold (600)
+- Bold (700)
+- ExtraBold (800)
+
+## 🔧 Scripts Disponibles
+
+- `pnpm run dev` - Servidor de desarrollo Vite
+- `pnpm run build` - Build de producción
+- `pnpm run electron:dev` - Desarrollo con Electron
+- `pnpm run electron:build` - Build de la aplicación Electron
+
+---
+
+Proyecto desarrollado para **Caffenio** como parte del **IMU**.
 │
 ├── frontend/
 │   ├── src/

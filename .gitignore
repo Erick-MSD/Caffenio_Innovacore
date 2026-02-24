@@ -137,3 +137,99 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# ====================
+# Electron Specific
+# ====================
+# Electron build output
+dist-electron/
+out/
+build/
+release/
+app/dist/
+
+# Electron builder cache
+.electron-builder/
+electron-builder-effective-config.yaml
+
+# ====================
+# PNPM Specific
+# ====================
+# PNPM lock file (descomenta si quieres versionarlo)
+# pnpm-lock.yaml
+.pnpm-store/
+.pnpm-debug.log*
+
+# ====================
+# Environment & Secrets
+# ====================
+# Variables de entorno sensibles
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Archivos de configuración con datos sensibles
+config.json
+secrets.json
+credentials.json
+
+# Certificados y llaves
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+
+# ====================
+# Editor & OS
+# ====================
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ====================
+# Testing & Coverage
+# ====================
+# Archivos de cobertura de pruebas
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+playwright-report/
+
+# ====================
+# Build & Temp Files
+# ====================
+# Archivos temporales
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Logs específicos del proyecto
+logs/
+*.log
+
+# ====================
+# Database & Assets
+# ====================
+# No subir bases de datos locales
+*.sqlite
+*.sqlite3
+*.db
+
+# Assets grandes (si los hay)
+# assets/videos/
+# assets/large-files/
