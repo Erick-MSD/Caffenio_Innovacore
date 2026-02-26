@@ -1,4 +1,173 @@
-# Caffenio Innovacore
+# ☕ Caffenio Innovacore
+
+Sistema de gestión para cafetería con arquitectura moderna: Backend .NET + Frontend React + Electron.
+
+## 🚀 Inicio Rápido (Un Solo Comando)
+
+### Prerequisitos:
+- ✅ Docker Desktop instalado y corriendo
+- ✅ Node.js 18+ (solo para el frontend)
+
+### Levantar Backend + Base de Datos:
+
+```powershell
+docker-compose up -d --build
+```
+
+**Eso es todo.** Este comando levanta:
+- 🗄️ SQL Server 2022 Express
+- 📊 Base de datos con tablas y datos de ejemplo
+- 🚀 Backend API .NET 9
+
+### Verificar que todo funcione:
+
+```powershell
+# Ver estado
+docker-compose ps
+
+# Probar el backend
+Invoke-RestMethod -Uri "http://localhost:5000/api/health"
+```
+
+Deberías ver:
+```json
+{
+  "Status": "Healthy",
+  "Database": {
+    "Status": "Connected",
+    "Connected": true
+  }
+}
+```
+
+### Frontend (opcional):
+
+```powershell
+cd frontend
+pnpm install
+pnpm dev
+```
+
+El frontend abre en: `http://localhost:5173`
+
+---
+
+## 📚 Documentación
+
+- **[INICIO_RAPIDO.md](INICIO_RAPIDO.md)** - Guía de inicio rápido completa
+- **[DATABASE_DOCKER.md](DATABASE_DOCKER.md)** - Todo sobre la base de datos
+- **[backend/START_HERE.md](backend/START_HERE.md)** - Desarrollo del backend
+- **[frontend/START_HERE.md](frontend/START_HERE.md)** - Desarrollo del frontend
+
+---
+
+## 🏗️ Arquitectura
+
+```
+Caffenio_Innovacore/
+├─ backend/            # API .NET 9 + Entity Framework
+├─ frontend/           # React + Vite + Electron
+├─ db-init/            # Scripts SQL de inicialización
+├─ docker-compose.yml  # Configuración Docker
+└─ README.md
+```
+
+---
+
+## 🔐 Credenciales (Desarrollo)
+
+```
+Backend:     http://localhost:5000
+Database:    localhost,1433
+DB Name:     caffenio_innovacore
+Username:    sa
+Password:    CaffenioSecure2024!
+```
+
+⚠️ **Cambiar en producción**
+
+---
+
+## 🐳 Comandos Docker
+
+```powershell
+# Ver estado
+docker-compose ps
+
+# Ver logs
+docker-compose logs -f backend
+docker-compose logs -f sqlserver
+
+# Reiniciar
+docker-compose restart
+
+# Detener
+docker-compose down
+
+# Reiniciar desde cero (borra datos)
+docker-compose down -v
+docker-compose up -d --build
+```
+
+---
+
+## 👥 Trabajo en Equipo
+
+Cada desarrollador tiene su propia base de datos local en Docker.
+
+**Para sincronizar:**
+```powershell
+git pull
+docker-compose down -v
+docker-compose up -d --build
+```
+
+Más info: [DATABASE_DOCKER.md](DATABASE_DOCKER.md#-trabajo-en-equipo-con-docker)
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Backend**: .NET 9, Entity Framework Core, SQL Server
+- **Frontend**: React 18, Vite, TailwindCSS, Electron
+- **DevOps**: Docker, Docker Compose
+- **Base de Datos**: SQL Server 2022 Express
+
+---
+
+## 📖 Guías de Desarrollo
+
+### Backend (con Docker):
+```powershell
+# Los cambios se reflejan automáticamente
+docker-compose up -d --build backend
+```
+
+### Backend (sin Docker, para debugging):
+```powershell
+cd backend/Caffenio.API
+dotnet run
+```
+
+### Frontend:
+```powershell
+cd frontend
+pnpm dev          # Modo desarrollo web
+pnpm electron:dev # Modo Electron
+```
+
+---
+
+## ✅ Próximos Pasos
+
+1. ✅ Levantar el proyecto: `docker-compose up -d --build`
+2. ✅ Verificar: `Invoke-RestMethod http://localhost:5000/api/health`
+3. 📖 Lee [INICIO_RAPIDO.md](INICIO_RAPIDO.md) para más detalles
+4. 🚀 ¡Empieza a desarrollar!
+
+---
+
+**¿Problemas?** Ver [DATABASE_DOCKER.md#-solución-de-problemas](DATABASE_DOCKER.md#-solución-de-problemas)
 
 Sistema de pedidos Caffenio con **Frontend Electron + React** y **Backend .NET C#**.
 

@@ -1,7 +1,14 @@
+using Caffenio.API.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Configurar Entity Framework con SQL Server
+builder.Services.AddDbContext<CaffenioDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure CORS para permitir comunicación con Electron/React
 builder.Services.AddCors(options =>
