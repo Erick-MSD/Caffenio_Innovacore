@@ -1,583 +1,494 @@
 # ☕ Caffenio Innovacore
 
-Sistema de gestión para cafetería con arquitectura moderna: Backend .NET + Frontend React + Electron.
+Modern point-of-sale system for coffee shops with a complete tech stack: .NET 9 Backend + React Frontend + Electron Desktop App + Docker.
 
-## 🚀 Inicio Rápido (Un Solo Comando)
+> **🌍 Español:** [README.es.md](README.es.md)
 
-### Prerequisitos:
-- ✅ Docker Desktop instalado y corriendo
-- ✅ Node.js 18+ (solo para el frontend)
+---
 
-### Levantar Backend + Base de Datos:
+## 📖 Overview
+
+**Caffenio Innovacore** is a comprehensive coffee shop management system designed for order taking, inventory management, and customer service. The application provides an intuitive touch-screen interface for employees to process orders, customize products, and manage real-time product availability.
+
+### What is this project?
+A full-stack point-of-sale (POS) system built for coffee shops that need:
+- Fast order processing with product customization
+- Real-time inventory availability tracking
+- Order ticket generation for kitchen/cashier
+- Modern, responsive touch-screen interface
+
+### Key Features
+- ✨ Interactive product catalog with category navigation (Hot, Cold, Food, Sweets)
+- 🛒 Real-time shopping cart with dynamic order management
+- 🎨 Advanced product customization (size, milk type, temperature, extras)
+- 📦 Live inventory availability checking
+- 🎫 Automatic order ticket generation (4-digit codes)
+- 🔐 API key-based security
+- 📱 Cross-platform desktop application (Electron)
+- 🐳 Fully containerized with Docker
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology | Version | Purpose |
+|-------|-----------|---------|---------|
+| **Frontend** | React + Vite | 19.0.0 / 6.0.1 | UI Framework & Build Tool |
+| **Styling** | TailwindCSS | 3.4.17 | Utility-first CSS |
+| **Desktop** | Electron | 34.0.0 | Cross-platform desktop app |
+| **Backend** | .NET Web API (C#) | 9.0 | RESTful API server |
+| **Database** | SQL Server Express | 2022 | Relational database |
+| **ORM** | Entity Framework Core | 9.0 | Database access layer |
+| **Containerization** | Docker Compose | - | Service orchestration |
+| **Package Manager** | pnpm | 9.15.4 | Fast, efficient npm alternative |
+
+---
+
+## 🚀 Quick Start (3 Steps)
+
+### Prerequisites
+```
+✅ Docker Desktop (required)
+✅ Node.js 18+ (required for frontend)
+✅ pnpm (install: npm install -g pnpm)
+```
+
+### 1. Start Backend + Database
 
 ```powershell
 docker-compose up -d --build
 ```
 
-**Eso es todo.** Este comando levanta:
-- 🗄️ SQL Server 2022 Express
-- 📊 Base de datos con tablas y datos de ejemplo
-- 🚀 Backend API .NET 9
+This command starts:
+- 🗄️ **SQL Server 2022** on port `1433`
+- 📊 **Database initialization** with tables and sample data
+- 🚀 **Backend API** on port `5000`
 
-### Verificar que todo funcione:
+### 2. Verify Backend
 
 ```powershell
-# Ver estado
+# Check containers
 docker-compose ps
 
-# Probar el backend
+# Test API health
 Invoke-RestMethod -Uri "http://localhost:5000/api/health"
 ```
 
-Deberías ver:
+Expected response:
 ```json
 {
-  "Status": "Healthy",
-  "Database": {
-    "Status": "Connected",
-    "Connected": true
-  }
+  "status": "Healthy",
+  "database": { "status": "Connected" }
 }
 ```
 
-### Frontend (opcional):
+### 3. Start Frontend
 
 ```powershell
 cd frontend
 pnpm install
-pnpm dev
+pnpm run dev
 ```
 
-El frontend abre en: `http://localhost:5173`
+✅ Application opens at: **http://localhost:5173**
 
 ---
 
-## 📚 Documentación
-
-- **[INICIO_RAPIDO.md](INICIO_RAPIDO.md)** - Guía de inicio rápido completa
-- **[DATABASE_DOCKER.md](DATABASE_DOCKER.md)** - Todo sobre la base de datos
-- **[backend/START_HERE.md](backend/START_HERE.md)** - Desarrollo del backend
-- **[frontend/START_HERE.md](frontend/START_HERE.md)** - Desarrollo del frontend
-
----
-
-## 🏗️ Arquitectura
+## 📁 Project Structure
 
 ```
 Caffenio_Innovacore/
-├─ backend/            # API .NET 9 + Entity Framework
-├─ frontend/           # React + Vite + Electron
-├─ db-init/            # Scripts SQL de inicialización
-├─ docker-compose.yml  # Configuración Docker
-└─ README.md
+│
+├── 🎨 frontend/                    # Desktop application (Electron + React)
+│   ├── electron/                  # Electron main process
+│   │   ├── main.js               # Application entry point
+│   │   └── preload.js            # Context bridge
+│   │
+│   ├── src/                       # React source code
+│   │   ├── pages/                # Application pages
+│   │   │   ├── Home.jsx          # Category selection
+│   │   │   ├── ProductList.jsx   # Product catalog
+│   │   │   ├── ProductCustomization.jsx
+│   │   │   ├── OrderSummary.jsx  # Cart review
+│   │   │   └── OrderConfirmation.jsx
+│   │   ├── context/              # Global state management
+│   │   │   ├── AuthContext.jsx   # Authentication
+│   │   │   └── CartContext.jsx   # Shopping cart
+│   │   ├── services/             # API integration
+│   │   │   └── api.js            # HTTP client
+│   │   └── main.jsx              # React entry point
+│   │
+│   ├── assets/                    # Static resources
+│   │   ├── fonts/                # Gilroy font family
+│   │   └── images/               # Product images & logo
+│   │
+│   ├── package.json              # Dependencies
+│   └── vite.config.js            # Build configuration
+│
+├── ⚙️ backend/                     # REST API (.NET 9)
+│   └── Caffenio.API/              # Main API project
+│       ├── Controllers/          # HTTP endpoints
+│       │   ├── ProductosController.cs   # Product catalog
+│       │   ├── OrdenesController.cs     # Order management
+│       │   └── HealthController.cs      # System health
+│       │
+│       ├── Models/               # Domain entities
+│       │   ├── Product.cs        # Product model
+│       │   ├── Orden.cs          # Order model
+│       │   └── User.cs           # User model
+│       │
+│       ├── Middleware/           # Custom middleware
+│       │   └── ApiKeyMiddleware.cs  # API security
+│       │
+│       ├── Data/                 # Database context
+│       │   └── CaffenioDbContext.cs
+│       │
+│       └── Program.cs            # Application startup
+│
+├── 🗄️ db-init/                     # Database initialization
+│   └── 01-init.sql               # Schema + sample data
+│
+├── 🐳 docker-compose.yml          # Service orchestration
+└── 📄 README.md                   # This file
 ```
 
 ---
 
-## 🔐 Credenciales (Desarrollo)
+## 🎯 Implemented Features
 
-```
-Backend:     http://localhost:5000
-Database:    localhost,1433
-DB Name:     caffenio_innovacore
-Username:    sa
-Password:    CaffenioSecure2024!
-```
+### Frontend ✅
+- [x] **Product Catalog** - Browse by category (Hot, Cold, Food, Sweets)
+- [x] **Product Customization** - Size, milk type, temperature, extras
+- [x] **Shopping Cart** - Add/remove items, quantity management
+- [x] **Order Summary** - Review before payment
+- [x] **Order Confirmation** - Display ticket number
+- [x] **Authentication** - QR code login system
+- [x] **Real-time Availability** - Shows unavailable products with visual feedback
+- [x] **Responsive Design** - Optimized for touch screens
 
-⚠️ **Cambiar en producción**
+### Backend ✅
+- [x] **Products API** - GET all products, filter by category/subcategory
+- [x] **Availability Check** - Real-time product availability status
+- [x] **Order Management** - POST new orders, GET order history
+- [x] **Ticket Generation** - Automatic 4-digit ticket codes
+- [x] **Order Tracking** - Status updates (Pending, In Progress, Ready, Delivered)
+- [x] **API Security** - API key middleware authentication
+- [x] **Health Checks** - Database connection monitoring
+- [x] **CORS Configuration** - Frontend communication enabled
+- [x] **Structured Logging** - Request/response logging
+
+### Infrastructure ✅
+- [x] **Docker Compose** - Full stack containerization
+- [x] **SQL Server** - Database in container with health checks
+- [x] **Auto-initialization** - Database schema created on first run
+- [x] **Sample Data** - 11 products preloaded with availability flags
 
 ---
 
-## 🐳 Comandos Docker
+## 🔐 API Authentication
+
+All API endpoints (except `/health`) require an API key header:
+
+```bash
+X-Api-Key: caffenio-2024-frontend-key
+```
+
+### Example Request
 
 ```powershell
-# Ver estado
+Invoke-WebRequest -Uri "http://localhost:5000/api/productos" `
+  -Headers @{"X-Api-Key"="caffenio-2024-frontend-key"} `
+  -UseBasicParsing
+```
+
+**Security Note:** In production, use environment variables for API keys.
+
+---
+
+## 📡 API Endpoints
+
+### Products
+```
+GET  /api/productos                           # All products
+GET  /api/productos/categoria/{id}            # By category
+GET  /api/productos/categoria/4/subcategoria/{id}  # By subcategory
+GET  /api/productos/{id}/disponibilidad       # Check availability
+```
+
+### Orders
+```
+POST   /api/ordenes                    # Create new order
+GET    /api/ordenes                    # Get all orders
+GET    /api/ordenes/ticket/{ticket}    # Get order by ticket
+PATCH  /api/ordenes/{id}/estado        # Update order status
+```
+
+### System
+```
+GET  /api/health                       # System health check
+```
+
+---
+
+## 🗄️ Database Setup
+
+The database is **automatically initialized** via Docker. No manual setup required.
+
+### Connection Details (Development)
+```
+Server:   localhost,1433
+Database: caffenio_innovacore
+User:     sa
+Password: CaffenioSecure2024!
+```
+
+⚠️ **Change credentials in production**
+
+### Manual Database Access
+
+```powershell
+# Connect using sqlcmd (inside container)
+docker exec -it caffenio_sqlserver /opt/mssql-tools18/bin/sqlcmd `
+  -S localhost -U sa -P "CaffenioSecure2024!" -C
+```
+
+---
+
+## 🐳 Docker Commands
+
+```powershell
+# Start all services
+docker-compose up -d
+
+# View status
 docker-compose ps
 
-# Ver logs
+# View logs
 docker-compose logs -f backend
 docker-compose logs -f sqlserver
 
-# Reiniciar
-docker-compose restart
+# Restart services
+docker-compose restart backend
 
-# Detener
+# Stop all services
 docker-compose down
 
-# Reiniciar desde cero (borra datos)
+# Complete reset (removes data)
 docker-compose down -v
 docker-compose up -d --build
 ```
 
 ---
 
-## 👥 Trabajo en Equipo
+## 🔧 Development Workflow
 
-Cada desarrollador tiene su propia base de datos local en Docker.
+### Backend Development (with Docker)
+```powershell
+# Make code changes, then rebuild
+docker-compose up -d --build backend
+```
 
-**Para sincronizar:**
+### Backend Development (without Docker - debugging)
+```powershell
+cd backend/Caffenio.API
+dotnet run
+```
+
+### Frontend Development
+```powershell
+cd frontend
+pnpm run dev          # Web mode (http://localhost:5173)
+pnpm run electron:dev # Desktop Electron app
+```
+
+---
+
+## 📦 Sample Data
+
+The system includes **11 products** across 4 categories:
+
+| Category | Products | Availability |
+|----------|----------|--------------|
+| **Hot Drinks** | Americano, Capuccino, Chocolate | Chocolate unavailable ❌ |
+| **Cold Drinks** | Frappé, Cold Brew | All available ✅ |
+| **Food** | Sandwich, Ensalada | Ensalada unavailable ❌ |
+| **Sweets** | Ice Cream (Vanilla/Chocolate), Chocolate Cake, Croissant | All available ✅ |
+
+**Unavailable products** are displayed in the UI with:
+- Grayscale image filter
+- Disabled "+" button
+- Red "(No disponible)" label
+- Warning message
+
+---
+
+## 🎨 Design System
+
+### Colors
+- **Background:** `#E1E1E1`
+- **Cards:** `#FFFFFF`
+- **Primary (Green):** `#84CC16` (lime-500)
+- **Secondary (Red):** `#EF4444` (red-500)
+
+### Typography
+**Gilroy Font Family** (included in `assets/fonts/`):
+- Light (300), Regular (400), Medium (500)
+- SemiBold (600), Bold (700), ExtraBold (800)
+
+---
+
+## 🔄 Workflow Example
+
+1. **Select Category** → Navigate to Hot/Cold/Food/Sweets
+2. **Choose Product** → Click on product card
+3. **Customize** → Select size, milk type, extras (for hot/cold drinks)
+4. **Add to Cart** → Product added with customizations
+5. **Review Order** → View cart summary with totals
+6. **Process Payment** → Order sent to backend
+7. **Get Ticket** → Receive 4-digit ticket number for pickup
+
+---
+
+## 📈 Future Improvements
+
+### High Priority
+- Persist orders to SQL Server database (currently in-memory)
+- Add user authentication with JWT tokens
+- Implement admin dashboard for inventory management
+- Product image management system
+
+### Medium Priority
+- Order history with date filtering
+- Sales reports and analytics
+- Customer loyalty program
+- Multi-language support (English/Spanish)
+
+### Low Priority
+- Thermal printer integration for ticket printing
+- Real-time order status notifications
+- Mobile app version (React Native)
+- Payment gateway integration
+
+---
+
+## 🧪 Testing
+
+### Backend API Tests
+
+```powershell
+# Products endpoint
+Invoke-WebRequest -Uri "http://localhost:5000/api/productos" `
+  -Headers @{"X-Api-Key"="caffenio-2024-frontend-key"} `
+  -UseBasicParsing
+
+# Create test order
+$order = @{
+  clienteId = "1"
+  subtotal = 70.00
+  iva = 11.20
+  descuento = 0.00
+  total = 81.20
+  items = @(
+    @{
+      productoId = 1
+      productoNombre = "Americano"
+      cantidad = 2
+      precioUnitario = 35.00
+      subtotal = 70.00
+      personalizacion = @{ tamano = "Grande"; leche = "Entera" }
+    }
+  )
+} | ConvertTo-Json -Depth 10
+
+Invoke-WebRequest -Uri "http://localhost:5000/api/ordenes" `
+  -Method Post `
+  -Headers @{"X-Api-Key"="caffenio-2024-frontend-key"; "Content-Type"="application/json"} `
+  -Body $order `
+  -UseBasicParsing
+```
+
+---
+
+## 🛠️ Troubleshooting
+
+### Docker Issues
+
+**Containers not starting:**
+```powershell
+docker-compose down -v
+docker-compose up -d --build
+```
+
+**Port already in use:**
+```powershell
+# Stop conflicting services
+docker ps
+docker stop <container_id>
+```
+
+### Backend Issues
+
+**API not responding:**
+```powershell
+# Check backend logs
+docker-compose logs backend
+
+# Restart backend
+docker-compose restart backend
+```
+
+### Frontend Issues
+
+**Port 5173 already in use:**
+```powershell
+# Kill process using port
+Get-Process -Id (Get-NetTCPConnection -LocalPort 5173).OwningProcess | Stop-Process
+```
+
+**Build errors:**
+```powershell
+cd frontend
+Remove-Item -Recurse -Force node_modules
+Remove-Item pnpm-lock.yaml
+pnpm install
+```
+
+---
+
+## 👥 Team Development
+
+Each developer has their own local database in Docker. No shared database conflicts.
+
+### Sync with team:
 ```powershell
 git pull
 docker-compose down -v
 docker-compose up -d --build
 ```
 
-Más info: [DATABASE_DOCKER.md](DATABASE_DOCKER.md#-trabajo-en-equipo-con-docker)
+---
+
+## 📄 License
+
+MIT License - See LICENSE file for details
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🆘 Support
 
-- **Backend**: .NET 9, Entity Framework Core, SQL Server
-- **Frontend**: React 18, Vite, TailwindCSS, Electron
-- **DevOps**: Docker, Docker Compose
-- **Base de Datos**: SQL Server 2022 Express
-
----
-
-## 📖 Guías de Desarrollo
-
-### Backend (con Docker):
-```powershell
-# Los cambios se reflejan automáticamente
-docker-compose up -d --build backend
-```
-
-### Backend (sin Docker, para debugging):
-```powershell
-cd backend/Caffenio.API
-dotnet run
-```
-
-### Frontend:
-```powershell
-cd frontend
-pnpm dev          # Modo desarrollo web
-pnpm electron:dev # Modo Electron
-```
+For issues or questions:
+1. Check [Troubleshooting](#-troubleshooting) section
+2. Review Docker logs: `docker-compose logs`
+3. Verify containers: `docker-compose ps`
 
 ---
 
-## ✅ Próximos Pasos
+## 🎯 Project Status
 
-1. ✅ Levantar el proyecto: `docker-compose up -d --build`
-2. ✅ Verificar: `Invoke-RestMethod http://localhost:5000/api/health`
-3. 📖 Lee [INICIO_RAPIDO.md](INICIO_RAPIDO.md) para más detalles
-4. 🚀 ¡Empieza a desarrollar!
-
----
-
-**¿Problemas?** Ver [DATABASE_DOCKER.md#-solución-de-problemas](DATABASE_DOCKER.md#-solución-de-problemas)
-
-Sistema de pedidos Caffenio con **Frontend Electron + React** y **Backend .NET C#**.
-
-## 📋 Especificaciones del Proyecto
-
-### **LENGUAJE:**
-- **FRONT:** React + Electron
-- **BACK:** API .NET Framework C#
-
-### **MOTOR:**
-- **Base de Datos:** Microsoft SQL Server
+**Current Version:** 1.0.0  
+**Status:** ✅ Functional MVP - Ready for testing and enhancement  
+**Last Updated:** February 2026
 
 ---
 
-## 🏗️ Arquitectura del Proyecto
-
-```
-Caffenio_Innovacore/
-├── frontend/          # 🎨 Aplicación Electron + React
-│   ├── electron/     # Proceso principal de Electron
-│   ├── src/         # Código React
-│   │   ├── pages/  # Páginas de la aplicación
-│   │   └── ...
-│   ├── assets/      # Recursos (fuentes, imágenes)
-│   └── README.md    # 📖 Documentación del frontend
-│
-├── backend/          # ⚙️ API REST en .NET
-│   ├── Caffenio.API/ # Proyecto Web API
-│   │   ├── Controllers/
-│   │   ├── Models/
-│   │   ├── Services/
-│   │   └── ...
-│   ├── README.md     # 📖 Documentación del backend
-│   └── START_HERE.md # 👈 Guía rápida para empezar
-│
-└── README.md         # 📄 Este archivo
-```
-
----
-
-## 🚀 Inicio Rápido
-
-### **Frontend Developer**
-```bash
-cd frontend
-pnpm install
-pnpm run electron:dev
-```
-📖 [Ver documentación completa del frontend →](./frontend/README.md)
-
-### **Backend Developer**
-```bash
-cd backend/Caffenio.API
-dotnet run
-```
-📖 [Ver documentación completa del backend →](./backend/README.md)  
-👉 [EMPEZAR AQUÍ →](./backend/START_HERE.md)
-
----
-
-## 🎨 Frontend (Electron + React)
-
-### Tecnologías
-- **React 18** - UI Framework
-- **Electron** - Desktop application
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **PNPM** - Package manager
-
-### Comandos principales
-```bash
-cd frontend
-pnpm install              # Instalar dependencias
-pnpm run electron:dev     # Desarrollo
-pnpm run electron:build   # Build producción
-```
-
-### Características
-✅ Configurado con Tailwind CSS  
-✅ Fuentes Gilroy incluidas  
-✅ React Router para navegación  
-✅ Hot reload habilitado  
-✅ Listo para conectar con el backend  
-
-**Puerto:** http://localhost:5173
-
----
-
-## ⚙️ Backend (.NET C# + SQL Server)
-
-### Tecnologías
-- **.NET 9** - Framework
-- **ASP.NET Core Web API** - REST API
-- **C#** - Lenguaje
-- **Entity Framework Core** (por implementar)
-- **Microsoft SQL Server** - Base de datos
-
-### Comandos principales
-```bash
-cd backend/Caffenio.API
-dotnet restore            # Restaurar paquetes
-dotnet run               # Ejecutar API
-dotnet build             # Compilar
-```
-
-### Características
-✅ Proyecto Web API configurado  
-✅ CORS configurado para frontend  
-✅ Estructura organizada (MVC pattern)  
-✅ Ejemplos de código incluidos  
-✅ SQL Server connection string configurado  
-✅ Documentación completa  
-
-**Puertos:**
-- HTTP: http://localhost:5000
-- HTTPS: https://localhost:5001
-
-**Endpoint de prueba:** https://localhost:5001/api/health
-
----
-
-## 🗄️ Base de Datos (SQL Server)
-
-### Configuración
-
-1. **Instalar SQL Server** (si no lo tienes):
-   - [SQL Server Express](https://www.microsoft.com/sql-server/sql-server-downloads) (Gratis)
-   - [SQL Server Developer Edition](https://www.microsoft.com/sql-server/sql-server-downloads) (Gratis)
-
-2. **Configurar Connection String** en `backend/Caffenio.API/appsettings.json`:
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=CaffenioDB;Integrated Security=true;TrustServerCertificate=True;"
-  }
-}
-```
-
-3. **Instalar Entity Framework Core**:
-```bash
-cd backend/Caffenio.API
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-
-4. **Crear migraciones** (cuando implementes el DbContext):
-```bash
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
-
----
-
-## 🔗 Comunicación Frontend ↔ Backend
-
-El frontend se comunica con el backend via REST API:
-
-**Frontend:** http://localhost:5173 (Vite dev server)  
-**Backend:** https://localhost:5001 (API .NET)
-
-### Ejemplo de llamada desde React:
-```javascript
-const response = await fetch('https://localhost:5001/api/health');
-const data = await response.json();
-console.log(data);
-```
-
-✅ **CORS ya está configurado** en el backend para aceptar requests del frontend.
-
----
-
-## 📦 Gestión de Dependencias
-
-### Frontend (PNPM)
-```bash
-cd frontend
-pnpm install                # Instalar
-pnpm add <package>          # Agregar paquete
-pnpm remove <package>       # Eliminar paquete
-pnpm update                 # Actualizar todos
-```
-
-### Backend (.NET)
-```bash
-cd backend/Caffenio.API
-dotnet restore              # Restaurar
-dotnet add package <name>   # Agregar paquete NuGet
-dotnet remove package <name> # Eliminar paquete
-dotnet list package         # Listar paquetes
-```
-
----
-
-## 🎨 Recursos del Proyecto
-
-### Fuentes
-**Gilroy** (ubicada en `frontend/assets/fonts/`):
-- Light (300), Regular (400), Medium (500)
-- SemiBold (600), Bold (700), ExtraBold (800)
-
-### Imágenes
-Logo ubicado en: `frontend/assets/images/logo.png`
-
-### Colores
-- **Fondo:** `#E1E1E1`
-- **Tarjetas:** `#FFFFFF`
-
----
-
-## 🚀 Desarrollo Full Stack
-
-Para trabajar con ambos simultáneamente:
-
-**Terminal 1 - Frontend:**
-```bash
-cd frontend
-pnpm run electron:dev
-```
-
-**Terminal 2 - Backend:**
-```bash
-cd backend/Caffenio.API
-dotnet run
-```
-
-Ambos servicios correrán en paralelo y podrás desarrollar con hot reload.
-
----
-
-## 📝 Estructura de Trabajo
-
-### Frontend
-```
-src/
-├── pages/          # Páginas principales
-├── components/     # Componentes reutilizables
-├── services/       # Llamadas a la API
-├── hooks/          # Custom hooks
-└── utils/          # Utilidades
-```
-
-### Backend
-```
-Caffenio.API/
-├── Controllers/    # Endpoints HTTP
-├── Models/        # Entidades del dominio
-├── DTOs/          # Data Transfer Objects
-├── Services/      # Lógica de negocio
-├── Repositories/  # Acceso a datos
-└── Middleware/    # Middleware personalizado
-```
-
----
-
-## 🧪 Testing (Por implementar)
-
-### Frontend
-```bash
-cd frontend
-pnpm add -D vitest @testing-library/react
-```
-
-### Backend
-```bash
-cd backend
-dotnet new xunit -n Caffenio.Tests
-dotnet sln add Caffenio.Tests/Caffenio.Tests.csproj
-```
-
----
-
-## 📚 Documentación Detallada
-
-| Componente | Archivo | Descripción |
-|------------|---------|-------------|
-| **Frontend** | [frontend/README.md](./frontend/README.md) | Documentación completa del frontend |
-| **Backend** | [backend/README.md](./backend/README.md) | Documentación completa del backend |
-| **Inicio Backend** | [backend/START_HERE.md](./backend/START_HERE.md) | Guía rápida para comenzar |
-| **Backend Checklist** | [backend/CHECKLIST.md](./backend/CHECKLIST.md) | Tareas pendientes organizadas |
-| **Backend Guía** | [backend/GUIA_RAPIDA.md](./backend/GUIA_RAPIDA.md) | Guía paso a paso |
-
----
-
-## 🔒 Seguridad
-
-### Variables de Entorno
-**NO subir a Git:**
-- `appsettings.Development.json`
-- `appsettings.Production.json`
-- `.env.local`
-- Archivos con contraseñas o secrets
-
-El `.gitignore` ya está configurado para proteger archivos sensibles.
-
----
-
-## 🛠️ Herramientas Recomendadas
-
-### Editores
-- **Visual Studio Code** (Frontend + Backend)
-- **Visual Studio 2022** (Backend - opcional)
-- **Rider** (Backend - opcional)
-
-### Extensiones VS Code
-- ESLint
-- Prettier
-- Tailwind CSS IntelliSense
-- C# Dev Kit
-- SQL Server (mssql)
-
-### Software Adicional
-- **SQL Server Management Studio (SSMS)** - Gestión de base de datos
-- **Postman** / **Insomnia** - Testing de API
-- **Git** - Control de versiones
-
----
-
-## 📊 Estado del Proyecto
-
-### ✅ Completado
-- [x] Configuración inicial de Frontend
-- [x] Configuración inicial de Backend
-- [x] Estructura de carpetas organizada
-- [x] CORS configurado
-- [x] Documentación completa
-- [x] Ejemplos de código
-- [x] .gitignore configurado
-
-### 🔜 Por Implementar
-- [ ] Base de datos con Entity Framework Core
-- [ ] Autenticación JWT
-- [ ] Endpoints de la API
-- [ ] Páginas del frontend
-- [ ] Sistema de login
-- [ ] Catálogo de productos
-- [ ] Sistema de pedidos
-
----
-
-## 👥 Equipo
-
-Proyecto desarrollado para **Caffenio** como parte del **Innovation Meet Up (IMU) 2026**.
-
----
-
-## 📄 Licencia
-
-MIT
-
----
-
-## 🆘 Ayuda
-
-### Problemas comunes:
-
-**Frontend no inicia:**
-```bash
-cd frontend
-rm -rf node_modules pnpm-lock.yaml
-pnpm install
-```
-
-**Backend no compila:**
-```bash
-cd backend/Caffenio.API
-dotnet clean
-dotnet restore
-dotnet build
-```
-
-**Base de datos no conecta:**
-- Verifica que SQL Server esté corriendo
-- Revisa la connection string en `appsettings.json`
-- Prueba la conexión con SSMS
-
----
-
-**¿Listo para comenzar?**
-
-👉 **Frontend:** Ve a [frontend/README.md](./frontend/README.md)  
-👉 **Backend:** Ve a [backend/START_HERE.md](./backend/START_HERE.md)
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── docker-compose.yml
-├── .github/
-│   └── workflows/   # CI/CD
-├── README.md
-└── docs/
-    └── arquitectura.md
-```
-
-### Descripción de Carpetas Clave
-
-* **services/**: contiene todos los microservicios del backend.
-* **controllers/**: manejo de peticiones HTTP.
-* **routes/**: definición de endpoints.
-* **models/**: esquemas y modelos de MongoDB.
-* **services/**: lógica de negocio.
-* **middlewares/**: validaciones, autenticación, etc.
-* **tests/**: pruebas unitarias del servicio.
-* **frontend/**: aplicación web (React o Astro).
-* **.github/workflows/**: pipelines de CI/CD.
-* **docs/**: documentación adicional del proyecto.
-
-Esta estructura permite mantener el proyecto ordenado y facilita la colaboración y el mantenimiento a largo plazo.
-
----
-
-Este documento sirve como base inicial y podrá ajustarse conforme avance el desarrollo del proyecto.
+**Ready to start?** Run `docker-compose up -d --build` and open http://localhost:5173

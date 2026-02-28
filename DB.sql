@@ -1,0 +1,97 @@
+CREATE TABLE [CategoriaProducto] (
+	[CategoriaID] INT IDENTITY UNIQUE,
+	[NombreCategoria] VARCHAR(50) NOT NULL,
+	PRIMARY KEY([CategoriaID])
+);
+GO
+
+CREATE TABLE [Producto] (
+	[ProductoID] INT IDENTITY UNIQUE,
+	[CategoriaID] INT NOT NULL,
+	[Nombre] VARCHAR(100) NOT NULL,
+	[Descripcion] VARCHAR(255),
+	[PrecioBase] DECIMAL(10,2) NOT NULL,
+	PRIMARY KEY([ProductoID])
+);
+GO
+
+CREATE TABLE [VarianteProducto] (
+	[VarianteID] INT IDENTITY UNIQUE,
+	[ProductoID] INT NOT NULL,
+	[Tamano] VARCHAR(20) NOT NULL,
+	[TipoPreparacion] VARCHAR(50) NOT NULL,
+	[PrecioFinal] DECIMAL(10,2) NOT NULL,
+	PRIMARY KEY([VarianteID])
+);
+GO
+
+CREATE TABLE [Inventario] (
+	[InventarioID] INT IDENTITY UNIQUE,
+	[VarianteID] INT NOT NULL,
+	[CantidadDisponible] INT NOT NULL,
+	[FechaActualizacion] DATETIME,
+	PRIMARY KEY([InventarioID])
+);
+GO
+
+CREATE TABLE [Cliente] (
+	[ClienteID] INT IDENTITY UNIQUE,
+	[Nombre] VARCHAR(100) NOT NULL,
+	[TipoCliente] VARCHAR(20) NOT NULL,
+	[Telefono] VARCHAR(20),
+	[Email] VARCHAR(100),
+	PRIMARY KEY([ClienteID])
+);
+GO
+
+CREATE TABLE [Orden] (
+	[OrdenID] INT IDENTITY UNIQUE,
+	[ClienteID] INT NOT NULL,
+	[Fecha] DATETIME,
+	[Total] DECIMAL(10,2) NOT NULL,
+	[MetodoPago] VARCHAR(50),
+	PRIMARY KEY([OrdenID])
+);
+GO
+
+CREATE TABLE [DetalleOrden] (
+	[DetalleID] INT IDENTITY UNIQUE,
+	[OrdenID] INT NOT NULL,
+	[VarianteID] INT NOT NULL,
+	[Cantidad] INT NOT NULL,
+	[Subtotal] DECIMAL(10,2) NOT NULL,
+	PRIMARY KEY([DetalleID])
+);
+GO
+
+
+ALTER TABLE [CategoriaProducto]
+ADD FOREIGN KEY([CategoriaID])
+REFERENCES [Producto]([CategoriaID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Producto]
+ADD FOREIGN KEY([ProductoID])
+REFERENCES [VarianteProducto]([ProductoID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [VarianteProducto]
+ADD FOREIGN KEY([VarianteID])
+REFERENCES [Inventario]([VarianteID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Cliente]
+ADD FOREIGN KEY([ClienteID])
+REFERENCES [Orden]([ClienteID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Orden]
+ADD FOREIGN KEY([OrdenID])
+REFERENCES [DetalleOrden]([OrdenID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [VarianteProducto]
+ADD FOREIGN KEY([VarianteID])
+REFERENCES [DetalleOrden]([VarianteID])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
