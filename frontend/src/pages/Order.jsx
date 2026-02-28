@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import logo from '@assets/images/logo.png';
 
 function Order() {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
+  const { clearCart } = useCart();
 
   const categorias = [
     { id: 1, nombre: 'Calientes' },
@@ -15,6 +17,7 @@ function Order() {
   ];
 
   const handleCancelarPedido = () => {
+    clearCart();
     navigate('/');
   };
 
@@ -24,8 +27,13 @@ function Order() {
   };
 
   const handleCategoriaClick = (categoria) => {
-    console.log('Categoría seleccionada:', categoria.nombre);
-    // TODO: Navegar a la lista de productos de esa categoría
+    // Si es Dulces (id 4), primero preguntar subcategoría
+    if (categoria.id === 4) {
+      navigate('/category/4/subcategory');
+    } else {
+      // Para las demás categorías, ir directo a productos
+      navigate(`/category/${categoria.id}/products`);
+    }
   };
 
   return (

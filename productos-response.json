@@ -1,0 +1,123 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Americano",
+    "Description": "Café preparado con espresso y agua caliente, con un sabor más suave y menos intenso que el espresso.",
+    "Price": 35,
+    "Category": "Calientes",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/americano.png",
+    "CreatedAt": "2026-02-28T17:47:11.0752577Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 2,
+    "Name": "Capuccino",
+    "Description": "Base de café espresso, leche caliente y una capa de espuma de leche en crema.",
+    "Price": 45,
+    "Category": "Calientes",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/capuccino.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753137Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 3,
+    "Name": "Chocolate",
+    "Description": "Base de leche y chocolate, también disponible con el carácter tóbic toque mexicano.",
+    "Price": 40,
+    "Category": "Calientes",
+    "IsAvailable": false,
+    "ImageUrl": "/assets/images/chocolate.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753138Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 4,
+    "Name": "Frappé",
+    "Description": "Bebida helada de café con leche y hielo.",
+    "Price": 55,
+    "Category": "Fríos",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/frappe.png",
+    "CreatedAt": "2026-02-28T17:47:11.075314Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 5,
+    "Name": "Cold Brew",
+    "Description": "Café preparado con agua fría durante varias horas.",
+    "Price": 50,
+    "Category": "Fríos",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/coldbrew.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753141Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 6,
+    "Name": "Sandwich",
+    "Description": "Sandwich fresco con ingredientes de calidad.",
+    "Price": 60,
+    "Category": "Alimentos",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/sandwich.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753145Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 7,
+    "Name": "Ensalada",
+    "Description": "Ensalada fresca del día.",
+    "Price": 55,
+    "Category": "Alimentos",
+    "IsAvailable": false,
+    "ImageUrl": "/assets/images/ensalada.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753146Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 8,
+    "Name": "Helado de Vainilla",
+    "Description": "Nieve artesanal de vainilla.",
+    "Price": 35,
+    "Category": "Dulces-Nieve",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/nieve-vainilla.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753147Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 9,
+    "Name": "Helado de Chocolate",
+    "Description": "Nieve artesanal de chocolate.",
+    "Price": 35,
+    "Category": "Dulces-Nieve",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/nieve-chocolate.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753148Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 10,
+    "Name": "Pastel de Chocolate",
+    "Description": "Delicioso pastel de chocolate casero.",
+    "Price": 45,
+    "Category": "Dulces-Repostería",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/pastel-chocolate.png",
+    "CreatedAt": "2026-02-28T17:47:11.075315Z",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 11,
+    "Name": "Croissant",
+    "Description": "Croissant recién horneado.",
+    "Price": 30,
+    "Category": "Dulces-Repostería",
+    "IsAvailable": true,
+    "ImageUrl": "/assets/images/croissant.png",
+    "CreatedAt": "2026-02-28T17:47:11.0753151Z",
+    "UpdatedAt": null
+  }
+]

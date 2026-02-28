@@ -10,8 +10,11 @@ export default {
         gilroy: ['Gilroy', 'sans-serif'],
       },
       colors: {
-        'caffenio-bg': '#E1E1E1',
+        'caffenio-bg': '#F1EAE5',
       },
+      fontWeight: {
+        'gilroy-bold': '700',
+      }
     },
   },
   plugins: [],

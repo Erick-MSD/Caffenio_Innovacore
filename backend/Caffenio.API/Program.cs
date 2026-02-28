@@ -1,4 +1,5 @@
 using Caffenio.API.Data;
+using Caffenio.API.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,11 +26,11 @@ builder.Services.AddCors(options =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Configurar JSON options
+// Configurar JSON options con camelCase
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null; // Mantener PascalCase
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
@@ -47,6 +48,9 @@ if (app.Environment.IsDevelopment())
 
 // Habilitar CORS
 app.UseCors("AllowFrontend");
+
+// Middleware de seguridad con API Key
+app.UseMiddleware<ApiKeyMiddleware>();
 
 app.UseHttpsRedirection();
 
