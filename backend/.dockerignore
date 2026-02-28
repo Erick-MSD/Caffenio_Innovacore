@@ -1,0 +1,28 @@
+# Ignorar archivos de build y binarios
+**/bin/
+**/obj/
+**/out/
+
+# Ignorar archivos de configuración local
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.suo
+
+# Ignorar node_modules si existen
+**/node_modules/
+
+# Ignorar archivos de git
+.git/
+.gitignore
+
+# Ignorar archivos de sistema
+**/.DS_Store
+**/Thumbs.db
+
+# Ignorar logs
+**/*.log
+
+# Ignorar documentación
+**/*.md
+!README.md

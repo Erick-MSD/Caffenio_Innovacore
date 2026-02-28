@@ -1,0 +1,78 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: caffenio_sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD:-CaffenioSecure2024!}
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - caffenio_network
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -C -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: caffenio_db_init
+    environment:
+      - SA_PASSWORD=${SA_PASSWORD:-CaffenioSecure2024!}
+    volumes:
+      - ./db-init:/scripts
+    networks:
+      - caffenio_network
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    command: >
+      bash -c "
+      echo 'Esperando a SQL Server...' &&
+      sleep 5 &&
+      echo 'Ejecutando script de inicialización...' &&
+      /opt/mssql-tools18/bin/sqlcmd -S sqlserver -U sa -P '${SA_PASSWORD:-CaffenioSecure2024!}' -C -i /scripts/01-init.sql &&
+      echo '✅ Base de datos inicializada correctamente!'
+      "
+    restart: "no"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: caffenio_backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=caffenio_innovacore;User Id=sa;Password=${SA_PASSWORD:-CaffenioSecure2024!};TrustServerCertificate=True;Encrypt=False;
+    ports:
+      - "5000:5000"
+    networks:
+      - caffenio_network
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    healthcheck:
+      test: curl -f http://localhost:5000/api/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  sqlserver_data:
+    driver: local
+
+networks:
+  caffenio_network:
+    driver: bridge
