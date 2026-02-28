@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import logo from '@assets/images/logo.png'
 
 function Home() {
+  const navigate = useNavigate();
+
   const handleIdentifyWithApp = () => {
-    // Navegar a la pantalla de identificación
-    console.log('Identificarse con la App')
+    navigate('/login');
   }
 
   const handleOrderWithoutIdentity = () => {
-    // Navegar a la pantalla de pedido sin identificar
-    console.log('Realizar pedido sin identificarte')
+    navigate('/order');
   }
 
   return (
